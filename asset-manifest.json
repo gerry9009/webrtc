@@ -1,10 +1,13 @@
 {
   "files": {
-    "main.js": "/webrtc/static/js/main.40cf180c.js",
+    "main.css": "/webrtc/static/css/main.8b1b3218.css",
+    "main.js": "/webrtc/static/js/main.ce5e57ef.js",
     "index.html": "/webrtc/index.html",
-    "main.40cf180c.js.map": "/webrtc/static/js/main.40cf180c.js.map"
+    "main.8b1b3218.css.map": "/webrtc/static/css/main.8b1b3218.css.map",
+    "main.ce5e57ef.js.map": "/webrtc/static/js/main.ce5e57ef.js.map"
   },
   "entrypoints": [
-    "static/js/main.40cf180c.js"
+    "static/css/main.8b1b3218.css",
+    "static/js/main.ce5e57ef.js"
   ]
 }
