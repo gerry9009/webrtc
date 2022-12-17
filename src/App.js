@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-function App() {
+import { ContextProvider } from "./Context";
+
+import Home from "./components/1_home/Home";
+import Profile from "./components/2_profile/Profile";
+import Host from "./components/3_host/Host";
+import Join from "./components/3_join/Join";
+import Steam from "./components/4_stream/Stream";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ContextProvider>
+      <div className="App">WebRTC</div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/host" element={<Host />} />
+          <Route path="/join" element={<Join />} />
+          {<Route path="/steam" element={<Steam />} />}
+        </Routes>
+      </Router>
+    </ContextProvider>
   );
-}
+};
 
 export default App;
