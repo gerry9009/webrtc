@@ -13,6 +13,7 @@ const Profile = () => {
     setAudioID,
     videoID,
     setVideoID,
+    initializeSocket,
   } = useContext(ServerContext);
 
   const [settledDevices, setSettledDevices] = useState(false);
@@ -28,6 +29,13 @@ const Profile = () => {
   const handleDevicesForm = (e) => {
     e.preventDefault();
     setSettledDevices(true);
+
+    const name =
+      document.getElementById("username").value ||
+      "anonymus" + uuidv4().toString().slice(0, 3);
+
+    //initialize socket here with user name
+    initializeSocket(name);
   };
 
   const RenderAudio = () => {

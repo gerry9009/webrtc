@@ -14,10 +14,6 @@ const ContextProvider = ({ children }) => {
   const myVideo = useRef({ srcObject: null });
   const otherVideo = useRef({ srcObject: null });
 
-  useEffect(() => {
-    getInputDevices();
-  }, []);
-
   // create user profile
   const [user, setUser] = useState({
     name: null, // set in the Profile.jsx
@@ -33,6 +29,13 @@ const ContextProvider = ({ children }) => {
     peerSignal: null,
     stream: null,
   });
+
+  const socket = useRef();
+  const peer = useRef();
+
+  useEffect(() => {
+    getInputDevices();
+  }, []);
 
   // set User's name with a function
   const setUserName = (name) => {
@@ -77,9 +80,42 @@ const ContextProvider = ({ children }) => {
       });
   };
 
+  const initializeSocket = (name) => {
+    // 2-initialize socket server
+    socket.current = io("http://localhost:8000/");
+
+    // 5-receive socket message with user socket id
+    socket.current.on("connected", (socketID) => {
+      setUser({ ...user, socketID, name });
+    });
+  };
+
+  const callUser = (calledUserID) => {
+    // 6-create caller user peer
+    peer.current = new Peer({
+      initiator: true,
+      trickle: false,
+      stream: user.stream,
+    });
+
+    //7-send user's peer signal to the called user
+    peer.current.on("signal", (peerSignal) => {
+      setUser({ ...user, peerSignal });
+      socket.current.emit("callOtherUser", calledUserID, user, peerSignal);
+    });
+
+    peer.current.on("stream", (stream) => {
+      otherVideo.current.srcObject = stream;
+    });
+  };
+
+  const answerCall = () => {};
+
   return (
     <ServerContext.Provider
       value={{
+        user,
+        otherUser,
         myAudioDevices,
         myVideoDevices,
         audioID,
@@ -89,6 +125,10 @@ const ContextProvider = ({ children }) => {
         myVideo,
         otherVideo,
         createUserStream,
+        setUserName,
+        initializeSocket,
+        callUser,
+        answerCall,
       }}
     >
       {children}
