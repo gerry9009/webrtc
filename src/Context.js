@@ -6,6 +6,7 @@ import Peer from "simple-peer";
 const ServerContext = createContext();
 
 const ContextProvider = ({ children }) => {
+  // create video connection with the video object
   const [myAudioDevices, setMyAudioDevices] = useState();
   const [myVideoDevices, setMyVideoDevices] = useState();
   const [audioID, setAudioID] = useState("default");
@@ -33,9 +34,16 @@ const ContextProvider = ({ children }) => {
   const socket = useRef();
   const peer = useRef();
 
+  const [isCalling, setIsCalling] = useState(false);
+  const [otherVideoConnection, setOtherVideoConnection] = useState(false);
+
   useEffect(() => {
     getInputDevices();
   }, []);
+
+  useEffect(() => {
+    setOtherVideoConnection(true);
+  }, [otherVideo]);
 
   // set User's name with a function
   const setUserName = (name) => {
@@ -82,11 +90,18 @@ const ContextProvider = ({ children }) => {
 
   const initializeSocket = (name) => {
     // 2-initialize socket server
-    socket.current = io("http://localhost:8000/");
+    //socket.current = io("http://localhost:8000/");
+    socket.current = io("https://gergo-webrtc-server.azurewebsites.net/");
 
     // 5-receive socket message with user socket id
     socket.current.on("connected", (socketID) => {
       setUser({ ...user, socketID, name });
+    });
+
+    // 9-Receive call from other user
+    socket.current.on("receiveCall", (callerUser, peerSignal) => {
+      setIsCalling(true);
+      setOtherUser({ ...callerUser, peerSignal });
     });
   };
 
@@ -107,9 +122,43 @@ const ContextProvider = ({ children }) => {
     peer.current.on("stream", (stream) => {
       otherVideo.current.srcObject = stream;
     });
+
+    //12 - receive the called user data if the call was successful
+    socket.current.on("callAccepted", ({ name, socketID, stream }, signal) => {
+      setOtherUser({
+        ...otherUser,
+        name,
+        socketID,
+        stream,
+        peerSignal: signal,
+      });
+
+      peer.current.signal(signal);
+    });
   };
 
-  const answerCall = () => {};
+  const answerCall = () => {
+    // 8- create receiver peer
+    peer.current = new Peer({
+      initiator: false,
+      trickle: false,
+      stream: user.stream,
+    });
+
+    // 10- create receiver user peer signal and send it to the caller
+    peer.current.on("signal", (data) => {
+      setUser({ ...user, peerSignal: data });
+      socket.current.emit("acceptCall", otherUser, user, data);
+    });
+
+    // 13- set called user video src
+    peer.current.on("stream", (stream) => {
+      otherVideo.current.srcObject = stream;
+    });
+
+    //this is required when a peer is a non-initiator peer
+    peer.current.signal(otherUser.peerSignal);
+  };
 
   return (
     <ServerContext.Provider
@@ -129,6 +178,9 @@ const ContextProvider = ({ children }) => {
         initializeSocket,
         callUser,
         answerCall,
+        isCalling,
+        otherVideo,
+        otherVideoConnection,
       }}
     >
       {children}
