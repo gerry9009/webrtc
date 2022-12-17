@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import { ContextProvider } from "./Context";
 
@@ -13,15 +13,14 @@ const App = () => {
   return (
     <ContextProvider>
       <div className="App">WebRTC</div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/host" element={<Host />} />
-          <Route path="/join" element={<Join />} />
-          <Route path="/stream" element={<Stream />} />
-        </Routes>
-      </Router>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/host" element={<Host />} />
+        <Route path="/join" element={<Join />} />
+        <Route path="/stream" element={<Stream />} />
+      </Routes>
     </ContextProvider>
   );
 };
