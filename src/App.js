@@ -7,7 +7,7 @@ import Home from "./components/1_home/Home";
 import Profile from "./components/2_profile/Profile";
 import Host from "./components/3_host/Host";
 import Join from "./components/3_join/Join";
-import Steam from "./components/4_stream/Stream";
+import Stream from "./components/4_stream/Stream";
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/host" element={<Host />} />
           <Route path="/join" element={<Join />} />
-          {<Route path="/steam" element={<Steam />} />}
+          <Route path="/stream" element={<Stream />} />
         </Routes>
       </Router>
     </ContextProvider>
