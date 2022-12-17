@@ -1,0 +1,47 @@
+.messenger-container {
+  width: 500px;
+  height: 300px;
+  border: 1px solid black;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.message {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 6px;
+  width: 90%;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.message-main {
+  background-color: rgb(86, 163, 218);
+  align-self: flex-end;
+}
+
+.message-other {
+  background-color: rgb(220, 220, 220);
+}
+
+.message-text {
+  font-size: 16px;
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+.message-main-text {
+  text-align: end;
+}
+
+.message-time {
+  font-size: 10px;
+}
+
+.message-from {
+  font-size: 14px;
+}

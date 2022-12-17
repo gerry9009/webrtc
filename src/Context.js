@@ -37,6 +37,8 @@ const ContextProvider = ({ children }) => {
   const [isCalling, setIsCalling] = useState(false);
   const [otherVideoConnection, setOtherVideoConnection] = useState(false);
 
+  const [messages, setMessages] = useState([]);
+
   useEffect(() => {
     getInputDevices();
   }, []);
@@ -103,6 +105,11 @@ const ContextProvider = ({ children }) => {
       setIsCalling(true);
       setOtherUser({ ...callerUser, peerSignal });
     });
+
+    // Receive message from other user
+    socket.current.on("receiveMsg", (msgObj) => {
+      setMessages((messages) => [...messages, msgObj]);
+    });
   };
 
   const callUser = (calledUserID) => {
@@ -160,6 +167,11 @@ const ContextProvider = ({ children }) => {
     peer.current.signal(otherUser.peerSignal);
   };
 
+  const sendMessage = (msg) => {
+    setMessages((messages) => [...messages, msg]);
+    socket.current.emit("sendMsg", otherUser.socketID, msg);
+  };
+
   return (
     <ServerContext.Provider
       value={{
@@ -179,8 +191,9 @@ const ContextProvider = ({ children }) => {
         callUser,
         answerCall,
         isCalling,
-        otherVideo,
         otherVideoConnection,
+        sendMessage,
+        messages,
       }}
     >
       {children}

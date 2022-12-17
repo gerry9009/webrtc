@@ -12,7 +12,9 @@ import Stream from "./components/4_stream/Stream";
 const App = () => {
   return (
     <ContextProvider>
-      <div className="App">WebRTC</div>
+      <div className="App">
+        <h1>WebRTC</h1>
+      </div>
 
       <Routes>
         <Route path="/" element={<Home />} />
