@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/gerry9009/webrtc/static/js/main.a4e7019e.js",
-    "index.html": "/gerry9009/webrtc/index.html",
-    "main.a4e7019e.js.map": "/gerry9009/webrtc/static/js/main.a4e7019e.js.map"
+    "main.js": "/webrtc/static/js/main.3947ec22.js",
+    "index.html": "/webrtc/index.html",
+    "main.3947ec22.js.map": "/webrtc/static/js/main.3947ec22.js.map"
   },
   "entrypoints": [
-    "static/js/main.a4e7019e.js"
+    "static/js/main.3947ec22.js"
   ]
 }
