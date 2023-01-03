@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 
 import { ContextProvider } from "./Context";
 
@@ -9,12 +9,23 @@ import Host from "./components/3_host/Host";
 import Join from "./components/3_join/Join";
 import Stream from "./components/4_stream/Stream";
 
+import logo from "./assets/logo.png";
+
+import "./App.css";
+
+const Logo = () => {
+  return <img src={logo} alt="Logo" className="header-logo" />;
+};
+
 const App = () => {
   return (
     <ContextProvider>
-      <div className="App">
-        <h1>WebRTC</h1>
-      </div>
+      <header>
+        <Link to="/">
+          <Logo />
+        </Link>
+        <h1>AwesomeChat</h1>
+      </header>
 
       <Routes>
         <Route path="/" element={<Home />} />
