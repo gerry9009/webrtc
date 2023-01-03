@@ -1,2 +1,0 @@
-.messenger-container{border:1px solid #000;display:flex;flex-direction:column;height:300px;overflow-y:auto;padding:5px;width:500px}.message{border-radius:10px;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;margin-top:6px;padding:10px;width:90%}.message-main{align-self:flex-end;background-color:#56a3da}.message-other{background-color:#dcdcdc}.message-text{font-size:16px;overflow-wrap:break-word;width:100%}.message-main-text{text-align:end}.message-time{font-size:10px}.message-from{font-size:14px}
-/*# sourceMappingURL=main.8b1b3218.css.map*/
