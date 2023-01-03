@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ServerContext } from "../../Context";
 
-const Video = () => {
+const Video = ({ style }) => {
   const { myVideo, audioID, videoID, createUserStream } =
     useContext(ServerContext);
 
-    //TODO: create mute and unmute functionality 
+  //TODO: create mute and unmute functionality
   const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
@@ -22,9 +22,14 @@ const Video = () => {
 
   return (
     <div className="video">
-      <h1>Video</h1>
-      <button onClick={handleBtn}>{isMuted ? "mute" : "unmute"}</button>
-      <video className="user-video" ref={myVideo} autoPlay playsInline />
+      {/*<button onClick={handleBtn}>{isMuted ? "mute" : "unmute"}</button>*/}
+      <video
+        style={style}
+        className="user-video"
+        ref={myVideo}
+        autoPlay
+        playsInline
+      />
     </div>
   );
 };

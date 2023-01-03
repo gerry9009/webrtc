@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { ServerContext } from "../../Context";
 import Video from "../video/Video";
 
+import "./Host.css";
+
 const Host = () => {
   const { user, otherUser, isCalling, answerCall } = useContext(ServerContext);
 

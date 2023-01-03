@@ -55,7 +55,6 @@ const Messenger = () => {
 
   return (
     <div className="messenger">
-      <h3>Messenger</h3>
       <div className="messenger-container">
         <Messages />
       </div>

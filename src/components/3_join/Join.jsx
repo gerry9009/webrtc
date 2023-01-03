@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { ServerContext } from "../../Context";
 import Video from "../video/Video";
-
 import { Link } from "react-router-dom";
+
+import "./Join.css";
 
 const Join = () => {
   const { user, callUser } = useContext(ServerContext);

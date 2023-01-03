@@ -17,10 +17,9 @@ const OtherVideo = () => {
 
   return (
     <div className="otherVideo">
-      <h2>OtherVideo</h2>
-      <button onClick={handleBtn}>{isMuted ? "unmute" : "mute"}</button>
+      {/*<button onClick={handleBtn}>{isMuted ? "unmute" : "mute"}</button>*/}
       {otherVideoConnection ? (
-        <video ref={otherVideo} autoPlay playsInline />
+        <video className="other-video" ref={otherVideo} autoPlay playsInline />
       ) : (
         <div>Waiting other connection</div>
       )}

@@ -1,0 +1,9 @@
+.join {
+  padding-top: 30px;
+  background: var(--fourth-color);
+  height: 100vh;
+  color: var(--third-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

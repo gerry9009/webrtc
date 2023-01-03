@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { ServerContext } from "../../Context";
 import { v4 as uuidv4 } from "uuid";
 
+import "./Profile.css";
+
 import Video from "../video/Video";
 
 const Profile = () => {
@@ -64,18 +66,20 @@ const Profile = () => {
 
   return (
     <div className="profile">
-      <h2>Create your video profile</h2>
+      <h2 className="profile-heading">Create your video profile</h2>
       {settledDevices ? (
-        <>
+        <div className="profile-form profile-row">
           <Link to="/join">
-            <button>Join your friend</button>
+            <button className="profile-btn ">Join your friend</button>
           </Link>
           <Link to="/host">
-            <button>Create Room</button>
+            <button className="profile-btn profile-create-btn">
+              Create Room
+            </button>
           </Link>
-        </>
+        </div>
       ) : (
-        <form onSubmit={handleDevicesForm}>
+        <form className="profile-form" onSubmit={handleDevicesForm}>
           <label>
             Username:
             <input type="text" id="username" placeholder="Username" />
@@ -88,11 +92,12 @@ const Profile = () => {
             Camera:
             <RenderVideo />
           </label>
-          <input type="submit" value="Start" />
+          <input type="submit" value="Start" className="profile-btn" />
         </form>
       )}
-
-      <Video />
+      <div className="profile-container">
+        <Video />
+      </div>
     </div>
   );
 };
