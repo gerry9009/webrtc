@@ -9,6 +9,7 @@ import Profile from "./components/2_profile/Profile";
 import Host from "./components/3_host/Host";
 import Join from "./components/3_join/Join";
 import Stream from "./components/4_stream/Stream";
+import Close from "./components/5_close/Close";
 
 import "./App.css";
 
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/host" element={<Host />} />
         <Route path="/join" element={<Join />} />
         <Route path="/stream" element={<Stream />} />
+        <Route path="/close" element={<Close />} />
       </Routes>
     </ContextProvider>
   );

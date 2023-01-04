@@ -47,6 +47,13 @@ const ContextProvider = ({ children }) => {
     setOtherVideoConnection(true);
   }, [otherVideo]);
 
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      alert("reload page");
+      console.log("reload page");
+    };
+  });
+
   // set User's name with a function
   const setUserName = (name) => {
     setUser({ ...user, name });

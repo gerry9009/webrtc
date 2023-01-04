@@ -14,15 +14,24 @@ const Join = () => {
   };
 
   return (
-    <div className="join">
-      <h2>Welcome here {user.name}</h2>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <input type="text" id="join-otherUser" />
-      </form>
-      <Link to="/stream">
-        <button onClick={handleSubmit}>Join</button>
-      </Link>
-      <Video />
+    <div className="join main-container">
+      <div className="second-container">
+        <h2>Welcome here {user.name}</h2>
+        <form className="join-form" onSubmit={(e) => e.preventDefault()}>
+          <label>
+            Enter your friend's ID here:
+            <input type="text" id="join-otherUser" />
+          </label>
+        </form>
+        <Link to="/stream">
+          <button className="btn" onClick={handleSubmit}>
+            Join
+          </button>
+        </Link>
+      </div>
+      <div className="profile-container">
+        <Video />
+      </div>
     </div>
   );
 };

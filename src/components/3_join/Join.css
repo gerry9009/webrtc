@@ -1,9 +1,25 @@
-.join {
-  padding-top: 30px;
-  background: var(--fourth-color);
-  height: 100vh;
-  color: var(--third-color);
+.join-form {
+  display: block;
+  width: 40%;
+  margin-bottom: 5px;
+}
+
+.join-form label {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+}
+
+.join-form [type="text"] {
+  margin-top: 5px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .join-container {
+    margin: 0;
+    max-width: 900px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
 }

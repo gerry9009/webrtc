@@ -1,9 +1,5 @@
-.host {
-  padding-top: 30px;
-  background: var(--fourth-color);
-  height: 100vh;
-  color: var(--third-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.host-caller {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--first-color);
 }

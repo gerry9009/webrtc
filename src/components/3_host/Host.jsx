@@ -15,7 +15,7 @@ const Host = () => {
   const SendingMenu = () => {
     return (
       <>
-        <p>Send this id to your friend:</p>
+        <p>Send this ID to your friend:</p>
         <p>{user.socketID}</p>
       </>
     );
@@ -24,21 +24,28 @@ const Host = () => {
   const ReceiveMenu = () => {
     return (
       <>
-        <p>{otherUser.name} is calling you</p>
+        <p>
+          <span className="host-caller">{otherUser.name}</span> is calling you
+        </p>
         <Link to="/stream">
-          <button onClick={handleReceiveBtn}>Receive call</button>
+          <button className="btn" onClick={handleReceiveBtn}>
+            Receive call
+          </button>
         </Link>
       </>
     );
   };
 
   return (
-    <div className="host">
-      <h2>Welcome here {user.name}</h2>
+    <div className="host main-container">
+      <div className="second-container">
+        <h2>Welcome here, {user.name}</h2>
 
-      {isCalling ? <ReceiveMenu /> : <SendingMenu />}
-
-      <Video />
+        {isCalling ? <ReceiveMenu /> : <SendingMenu />}
+      </div>
+      <div className="profile-container">
+        <Video />
+      </div>
     </div>
   );
 };

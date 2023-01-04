@@ -14,7 +14,7 @@ const Header = () => {
       <Link to="/">
         <Logo />
       </Link>
-      <h1>Chat</h1>
+      <h1>BG-Chat</h1>
     </header>
   );
 };

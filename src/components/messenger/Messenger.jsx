@@ -4,9 +4,11 @@ import { ServerContext } from "../../Context";
 import { v4 as uuidv4 } from "uuid";
 import Message from "./Message";
 
+import { AiOutlineCloseSquare } from "react-icons/ai";
+
 import "./messenger.css";
 
-const Messenger = () => {
+const Messenger = ({ handleMsgBtn }) => {
   const { user, sendMessage, messages } = useContext(ServerContext);
 
   useEffect(() => {
@@ -19,21 +21,27 @@ const Messenger = () => {
     const messageInput = document.getElementById("messenger-input");
     const message = messageInput.value;
 
-    const date = new Date();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const second = date.getSeconds();
+    if (message.length) {
+      const date = new Date();
 
-    const time = hours + ":" + minutes + ":" + second;
+      let hours = date.getHours().toString();
+      let minutes = date.getMinutes().toString();
+      let second = date.getSeconds().toString();
 
-    const msgObj = {
-      time: time,
-      from: user.name,
-      text: message,
-    };
-    sendMessage(msgObj);
+      minutes = minutes.length === 1 ? "0" + minutes : minutes;
+      second = second.length === 1 ? "0" + second : second;
 
-    messageInput.value = "";
+      const time = hours + ":" + minutes + ":" + second;
+
+      const msgObj = {
+        time: time,
+        from: user.name,
+        text: message,
+      };
+      sendMessage(msgObj);
+
+      messageInput.value = "";
+    }
   };
 
   const containerToBottom = () => {
@@ -53,8 +61,20 @@ const Messenger = () => {
     });
   };
 
+  const iconStyle = {
+    color: "white",
+    width: "25px",
+    height: "25px",
+    margin: "0",
+  };
+
   return (
     <div className="messenger">
+      <div className="messenger-header">
+        <button onClick={handleMsgBtn}>
+          <AiOutlineCloseSquare style={iconStyle} />
+        </button>
+      </div>
       <div className="messenger-container">
         <Messages />
       </div>

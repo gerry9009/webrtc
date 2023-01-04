@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { ServerContext } from "../../Context";
 import { v4 as uuidv4 } from "uuid";
 
+import { BiUser, BiMicrophone, BiCamera } from "react-icons/bi";
+
 import "./Profile.css";
 
 import Video from "../video/Video";
@@ -42,7 +44,12 @@ const Profile = () => {
 
   const RenderAudio = () => {
     return (
-      <select id="audio-input" onChange={handleAudioOnChange} value={audioID}>
+      <select
+        className="profile-render"
+        id="audio-input"
+        onChange={handleAudioOnChange}
+        value={audioID}
+      >
         {myAudioDevices.map((audio) => (
           <option value={audio.deviceId} key={uuidv4()}>
             {audio.label}
@@ -54,7 +61,12 @@ const Profile = () => {
 
   const RenderVideo = () => {
     return (
-      <select id="video-input" onChange={handleVideoOnChange} value={videoID}>
+      <select
+        className="profile-render"
+        id="video-input"
+        onChange={handleVideoOnChange}
+        value={videoID}
+      >
         {myVideoDevices.map((video) => (
           <option value={video.deviceId} key={uuidv4()}>
             {video.label}
@@ -65,34 +77,35 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile">
+    <div className="profile main-container">
       <h2 className="profile-heading">Create your video profile</h2>
       {settledDevices ? (
-        <div className="profile-form profile-row">
+        <div className="profile-form second-container container-row">
           <Link to="/join">
-            <button className="profile-btn ">Join your friend</button>
+            <button className="btn ">Join your friend</button>
           </Link>
           <Link to="/host">
-            <button className="profile-btn profile-create-btn">
-              Create Room
-            </button>
+            <button className="btn btn-second">Create Room</button>
           </Link>
         </div>
       ) : (
-        <form className="profile-form" onSubmit={handleDevicesForm}>
+        <form
+          className="profile-form second-container"
+          onSubmit={handleDevicesForm}
+        >
           <label>
-            Username:
+            <BiUser />
             <input type="text" id="username" placeholder="Username" />
           </label>
           <label>
-            Microphone:
+            <BiMicrophone />
             <RenderAudio />
           </label>
           <label>
-            Camera:
+            <BiCamera />
             <RenderVideo />
           </label>
-          <input type="submit" value="Start" className="profile-btn" />
+          <input type="submit" value="Start" className="btn" />
         </form>
       )}
       <div className="profile-container">

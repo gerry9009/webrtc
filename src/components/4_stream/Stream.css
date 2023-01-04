@@ -1,5 +1,7 @@
 .stream {
   padding-top: 30px;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .other-video {
@@ -9,23 +11,61 @@
 
 .stream-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
+  flex-direction: row-reverse;
   justify-content: center;
   background: var(--fourth-color);
+  padding-bottom: 40vh;
+}
+
+.stream-other-user {
+  font-size: 2rem;
+  color: var(--third-color);
+  position: absolute;
+  top: 40px;
+  left: 20px;
+}
+
+.stream-user {
+  font-size: 2rem;
+  color: var(--third-color);
+  visibility: hidden;
+  position: absolute;
+}
+
+.stream-msg-container {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: var(--fifth-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 300px) {
+  .stream-container {
+    padding-bottom: 20vh;
+  }
 }
 
 @media (min-width: 576px) {
-}
-
-@media (min-width: 768px) {
-}
-
-@media (min-width: 992px) {
+  .stream-container {
+    padding-bottom: 0;
+  }
 }
 
 @media (min-width: 1200px) {
-}
+  .stream-other-user {
+    position: absolute;
+    top: 40px;
+    left: 20px;
+  }
 
-@media (min-width: 1400px) {
+  .stream-user {
+    visibility: visible;
+    top: 40px;
+    right: 20px;
+  }
 }

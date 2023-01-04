@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import Video from "../video/Video";
 import OtherVideo from "../otherVideo/OtherVideo";
 import Messenger from "../messenger/Messenger";
+import { ServerContext } from "../../Context";
 
 import "./Stream.css";
+import { useContext } from "react";
 
 const small = {
   width: "30vw",
@@ -17,14 +20,17 @@ const medium = {
   width: "100%",
   height: "100%",
   position: "static",
-  "max-width": "none",
-  "border-right": "1px solid black",
-  "border-bottom-right-radius": "0",
-  "border-bottom-left-radius": "0",
+  maxWidth: "none",
+  borderLeft: "1px solid black",
+  borderBottomRightRadius: "0",
+  borderBottomLeftRadius: "0",
 };
 
 const Stream = () => {
+  const { user, otherUser } = useContext(ServerContext);
+
   const [width, setWidth] = useState(getWidth());
+  const [msgIsOpen, setMsgIsOpen] = useState(false);
 
   useEffect(() => {
     function handleWindowResize() {
@@ -43,13 +49,27 @@ const Stream = () => {
     return innerWidth;
   }
 
+  function handleMsgBtn() {
+    setMsgIsOpen((prevMsg) => !prevMsg);
+  }
+
   return (
     <div className="stream">
       <div className="stream-container">
+        <p className="stream-other-user">{otherUser.name}</p>
+        <p className="stream-user">{user.name}</p>
         <Video style={width < 1200 ? small : medium} />
         <OtherVideo />
       </div>
-      <Messenger />
+      <div className="stream-msg-container">
+        <Link to="/close">
+          <button className="btn">End Call</button>
+        </Link>
+        <button className="btn" onClick={handleMsgBtn}>
+          Messenger
+        </button>
+        {msgIsOpen && <Messenger handleMsgBtn={handleMsgBtn} />}
+      </div>
     </div>
   );
 };

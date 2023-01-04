@@ -10,8 +10,18 @@ header {
   height: 30px;
 }
 
+h1 {
+  font-size: 1.2rem;
+}
+
 .header-logo {
   width: 25px;
   height: 25px;
   filter: invert(100%);
+}
+
+@media (min-width: 300px) {
+  h1 {
+    font-size: 2rem;
+  }
 }
