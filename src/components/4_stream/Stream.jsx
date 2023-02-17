@@ -27,7 +27,8 @@ const medium = {
 };
 
 const Stream = () => {
-  const { user, otherUser } = useContext(ServerContext);
+  const { user, otherUser, isReceivedMessage, setIsReceivedMessage } =
+    useContext(ServerContext);
 
   const [width, setWidth] = useState(getWidth());
   const [msgIsOpen, setMsgIsOpen] = useState(false);
@@ -51,6 +52,7 @@ const Stream = () => {
 
   function handleMsgBtn() {
     setMsgIsOpen((prevMsg) => !prevMsg);
+    setIsReceivedMessage(false);
   }
 
   return (
@@ -65,9 +67,16 @@ const Stream = () => {
         <Link to="/close">
           <button className="btn">End Call</button>
         </Link>
-        <button className="btn" onClick={handleMsgBtn}>
-          Messenger
-        </button>
+        {isReceivedMessage ? (
+          <button className="btn getMsg" onClick={handleMsgBtn}>
+            Messenger
+          </button>
+        ) : (
+          <button className="btn" onClick={handleMsgBtn}>
+            Messenger
+          </button>
+        )}
+
         {msgIsOpen && <Messenger handleMsgBtn={handleMsgBtn} />}
       </div>
     </div>

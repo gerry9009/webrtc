@@ -60,6 +60,22 @@ img {
   background: var(--second-color);
 }
 
+.getMsg {
+  animation: blinkingBackground 2s infinite;
+}
+
+@keyframes blinkingBackground {
+  0% {
+    background: #b1400b;
+  }
+  50% {
+    background: #ec5915;
+  }
+  100% {
+    background: #b1400b;
+  }
+}
+
 .btn-second {
   background: var(--third-color);
   color: var(--first-color);

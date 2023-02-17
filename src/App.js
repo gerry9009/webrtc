@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { ContextProvider } from "./Context";
+import { BeforeUnloadProvider } from "./BeforeUnloadContext";
 
 import Header from "./components/0_header/Header";
 import Home from "./components/1_home/Home";

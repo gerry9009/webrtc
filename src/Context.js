@@ -1,4 +1,5 @@
 import React, { createContext, useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { io } from "socket.io-client";
 import Peer from "simple-peer";
@@ -38,6 +39,7 @@ const ContextProvider = ({ children }) => {
   const [otherVideoConnection, setOtherVideoConnection] = useState(false);
 
   const [messages, setMessages] = useState([]);
+  const [isReceivedMessage, setIsReceivedMessage] = useState(false);
 
   useEffect(() => {
     getInputDevices();
@@ -47,13 +49,51 @@ const ContextProvider = ({ children }) => {
     setOtherVideoConnection(true);
   }, [otherVideo]);
 
-  useEffect(() => {
-    window.onbeforeunload = () => {
-      alert("reload page");
-      console.log("reload page");
-    };
-  });
+  //TODO:-----------------------------------------------
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log(window.location.hash);
+
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    //TODO: beállítom, hogy kapjon üzenetet
+    const handleUnload = () => {
+      setIsReceivedMessage(true);
+
+      navigate("/");
+      //window.location.hash = "/";
+      //window.location.reload();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("unload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("unload", handleUnload);
+    };
+  }, [navigate]);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === "#confirm-leave") {
+        console.log("hash change");
+        navigate("/");
+      }
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, [navigate]);
+
+  //TODO:-----------------------------------------------
   // set User's name with a function
   const setUserName = (name) => {
     setUser({ ...user, name });
@@ -83,7 +123,7 @@ const ContextProvider = ({ children }) => {
       });
   };
 
-  // create stream to the main user
+  // create setGetMessage to the main user
   const createUserStream = (audioDevicesID, videoDevicesID) => {
     navigator.mediaDevices
       .getUserMedia({
@@ -115,6 +155,7 @@ const ContextProvider = ({ children }) => {
 
     // Receive message from other user
     socket.current.on("receiveMsg", (msgObj) => {
+      setIsReceivedMessage(true);
       setMessages((messages) => [...messages, msgObj]);
     });
   };
@@ -201,6 +242,8 @@ const ContextProvider = ({ children }) => {
         otherVideoConnection,
         sendMessage,
         messages,
+        isReceivedMessage,
+        setIsReceivedMessage,
       }}
     >
       {children}
