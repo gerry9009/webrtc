@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
+import { ServerContext } from "../../Context";
+
 const Close = () => {
+  const { user } = useContext(ServerContext);
+
+  useEffect(() => {
+    if (user.name !== null) {
+      window.location.reload();
+    }
+  }, [user]);
+
   return (
     <div className="greeting close">
       <div className="greeting-container">

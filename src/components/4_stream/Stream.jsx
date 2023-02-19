@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import Video from "../video/Video";
@@ -7,7 +7,6 @@ import Messenger from "../messenger/Messenger";
 import { ServerContext } from "../../Context";
 
 import "./Stream.css";
-import { useContext } from "react";
 
 const small = {
   width: "30vw",
@@ -27,8 +26,14 @@ const medium = {
 };
 
 const Stream = () => {
-  const { user, otherUser, isReceivedMessage, setIsReceivedMessage } =
-    useContext(ServerContext);
+  const {
+    user,
+    otherUser,
+    isReceivedMessage,
+    setIsReceivedMessage,
+    disconnection,
+    isOtherUserLeft,
+  } = useContext(ServerContext);
 
   const [width, setWidth] = useState(getWidth());
   const [msgIsOpen, setMsgIsOpen] = useState(false);
@@ -55,17 +60,28 @@ const Stream = () => {
     setIsReceivedMessage(false);
   }
 
+  function handleEndCall() {
+    disconnection();
+  }
+
+  function LostConnection() {
+    return <div className="stream-end-msg">{user.name} left the meeting</div>;
+  }
+
   return (
     <div className="stream">
       <div className="stream-container">
         <p className="stream-other-user">{otherUser.name}</p>
         <p className="stream-user">{user.name}</p>
         <Video style={width < 1200 ? small : medium} />
-        <OtherVideo />
+
+        {isOtherUserLeft ? <LostConnection /> : <OtherVideo />}
       </div>
       <div className="stream-msg-container">
         <Link to="/close">
-          <button className="btn">End Call</button>
+          <button className="btn" onClick={handleEndCall}>
+            End Call
+          </button>
         </Link>
         {isReceivedMessage ? (
           <button className="btn getMsg" onClick={handleMsgBtn}>

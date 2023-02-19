@@ -41,6 +41,8 @@ const ContextProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [isReceivedMessage, setIsReceivedMessage] = useState(false);
 
+  const [isOtherUserLeft, setIsOtherUserLeft] = useState(false);
+
   useEffect(() => {
     getInputDevices();
   }, []);
@@ -93,7 +95,7 @@ const ContextProvider = ({ children }) => {
     };
   }, [navigate]);
 
-  //TODO:-----------------------------------------------
+  //TODO:-----------------------------------------------END
   // set User's name with a function
   const setUserName = (name) => {
     setUser({ ...user, name });
@@ -158,6 +160,23 @@ const ContextProvider = ({ children }) => {
       setIsReceivedMessage(true);
       setMessages((messages) => [...messages, msgObj]);
     });
+
+    //TODO: get disconnection message
+    socket.current.on("connectionLost", () => {
+      setIsOtherUserLeft(true);
+    });
+  };
+
+  //TODO: manage disconnection
+  const disconnection = () => {
+    // Stop all tracks in the local stream
+    const tracks = user.stream.getTracks();
+    tracks.forEach((track) => {
+      track.stop();
+    });
+
+    socket.current.emit("disconnected", otherUser);
+    socket.current.disconnect();
   };
 
   const callUser = (calledUserID) => {
@@ -244,6 +263,10 @@ const ContextProvider = ({ children }) => {
         messages,
         isReceivedMessage,
         setIsReceivedMessage,
+
+        //TODO:
+        disconnection,
+        isOtherUserLeft,
       }}
     >
       {children}
